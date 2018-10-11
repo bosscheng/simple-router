@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        a {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<a href="javascript:;" id="a" onclick="goPage.toA()">a-page</a>
+<a href="javascript:;" id="b" onclick="goPage.toB()">b-page</a>
+<a href="javascript:;" id="c" onclick="goPage.toC()">c-page</a>
+
+<div id="result"></div>
+
+<script src="./router.js"></script>
+<script>
+    var router = new Router();
+
+    //
+    var routerConfig = {
+        a: 'a',
+        b: 'b',
+        c: 'c'
+    };
+
+    for (var key in routerConfig) {
+        (function (view) {
+            //
+            router.registerRoute(view, function (state) {
+                console.log('current state,', state);
+                document.getElementById('result').innerText = 'current page,' + state;
+            })
+        })(key)
+    }
+
+
+    var goPage = {
+        toA: function () {
+            router.forwardRoute(routerConfig.a);
+        },
+        toB: function () {
+            router.forwardRoute(routerConfig.b);
+        },
+        toC: function () {
+            router.forwardRoute(routerConfig.c);
+        }
+    };
+
+    goPage.toA();
+
+
+    //
+
+</script>
+</body>
+</html>
